@@ -146,10 +146,11 @@
                                         <body>
                                                                                         
                                             <!-- Integración del gráfico de ThingSpeak usando un iframe -->
-                                            <iframe src="https://thingspeak.com/channels/2632360"></iframe>
+											 <!--https://thingspeak.com/channels/2637553-->
+                                            <iframe src="https://thingspeak.com/channels/2637553"></iframe>
                                             <br>
                                             <br>
-                                            <a href="https://thingspeak.com/channels/2632360" target="_blank"><h2>Comunicación Inalambrica</h2></a>.
+                                            <a href="https://thingspeak.com/channels/2637553" target="_blank"><h2>Comunicación Inalambrica</h2></a>.
                                             
                                         </body>
 									</section>
@@ -234,7 +235,7 @@
 												}).addTo(map);
 										
 												// URL para obtener los datos de temperatura desde ThingSpeak
-												var url = `https://api.thingspeak.com/channels/2632360/fields/1.json?api_key=PDAEFX6BP7MD7X70&results=1`;
+												var url = `https://thingspeak.com/channels/2637553/fields/1.json?api_key=PDAEFX6BP7MD7X70&results=1`;
 										
 												fetch(url)
 													.then(response => response.json())
@@ -242,7 +243,7 @@
 														var temperature = data.feeds[0].field1;
 										
 														// URL para obtener los datos de humedad desde ThingSpeak
-														var url2 = `https://api.thingspeak.com/channels/2632360/fields/2.json?api_key=PDAEFX6BP7MD7X70&results=1`;
+														var url2 = `https://thingspeak.com/channels/2637553/fields/2.json?api_key=PDAEFX6BP7MD7X70&results=1`;
 										
 														return fetch(url2)
 															.then(response => response.json())
