@@ -47,7 +47,7 @@
 									</li>
 									<li><a href="left-sidebar.html">SECTORES</a></li>
 									<li><a href="right-sidebar.html">CONTACTO</a></li>
-									<li><a href="no-sidebar.html">No Sidebar</a></li>
+									<!--<li><a href="no-sidebar.html">No Sidebar</a></li>-->
 								</ul>
 							</nav>
 
@@ -103,7 +103,7 @@
                                     /* Asegura que el iframe ocupe todo el espacio disponible */
                                     iframe {
                                         width: 100%;
-                                        height: 550px; /* Ajusta la altura según tus necesidades */
+                                        height: 500px; /* Ajusta la altura según tus necesidades */
                                         border: none; /* Elimina el borde del iframe */
                                     }
                                 </style>
@@ -277,13 +277,10 @@
 														.bindPopup("<b>Sensor de Temperatura y Humedad</b><br>Ubicación: Puerto Maldonado");
 												}
 
-												// Añadir un marcador para un sensor
-													var marker2 = L.marker([-12.046, -77.030]).addTo(map)
-														.bindPopup('<b>Sensor de Flama</b><br>Ubicación: Lima, Perú');
-
-
-													var marker3 = L.marker([-12.050, -77.040]).addTo(map)
-														.bindPopup('<b>Sensor calidad de agua</b><br>Ubicación: Lima, Perú');
+												// Agregar marcadores adicionales sin íconos personalizados
+													L.marker([-12.595, -69.170]).addTo(map).bindPopup("<b>Sensor Flama</b><br>");
+													L.marker([-12.590, -69.200]).addTo(map).bindPopup("<b>Sensor Lluvia</b><br>");
+													L.marker([-12.585, -69.085]).addTo(map).bindPopup("<b>Sensor oxigeno</b><br>");
 
 											</script>
 										</body>
@@ -312,7 +309,7 @@
 				<div id="main-wrapper">
 					<div class="container">
 						<div class="row gtr-200">
-							<div class="col-4 col-12-medium">
+							<div class="col-6 col-12-medium">
 
 								<!-- Sidebar -->
 									<div id="sidebar">
@@ -331,11 +328,13 @@
 									</div>
 
 							</div>
-							<div class="col-8 col-12-medium imp-medium">
+							<div class="col-6 col-12-medium imp-medium">
 
 								<!-- Content -->
 									<div id="content">
 										<section class="last">
+											<h3>NOTICIAS</h3>
+											<P>Proximos eventos</P>
 											<!--<h2>So what's this all about?</h2>
 											<p>This is <strong>Verti</strong>, a free and fully responsive HTML5 site template by <a href="http://html5up.net">HTML5 UP</a>.
 											Verti is released under the <a href="http://html5up.net/license">Creative Commons Attribution license</a>, so feel free to use it for any personal or commercial project you might have going on (just don't forget to credit us for the design!)</p>
