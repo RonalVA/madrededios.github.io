@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mapa con Leaflet - Temperatura y Humedad en Puerto Maldonado</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map { height: 400px; }
+        .custom-icon {
+            position: relative;
+            width: 100px;
+            height: 50px;
+        }
+        .custom-icon img {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+        }
+        .temperature-icon {
+            left: 0;
+            top: 0;
+        }
+        .humidity-icon {
+            left: 50px;
+            top: 0;
+        }
+        .temperature-value, .humidity-value {
+            position: absolute;
+            top: 30px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .temperature-value {
+            left: 0;
+        }
+        .humidity-value {
+            left: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([-12.5934, -69.189], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19
+        }).addTo(map);
+
+        // URL para obtener los datos de temperatura desde ThingSpeak
+        var url = `https://api.thingspeak.com/channels/2632360/fields/1.json?api_key=PDAEFX6BP7MD7X70&results=1`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                var temperature = data.feeds[0].field1;
+
+                // URL para obtener los datos de humedad desde ThingSpeak
+                var url2 = `https://api.thingspeak.com/channels/2632360/fields/2.json?api_key=PDAEFX6BP7MD7X70&results=1`;
+
+                return fetch(url2)
+                    .then(response => response.json())
+                    .then(data2 => {
+                        var humidity = data2.feeds[0].field2;
+
+                        // Crear el marcador con los valores obtenidos
+                        crearMarcador(temperature, humidity);
+                    });
+            })
+            .catch(error => console.error('Error obteniendo los datos:', error));
+
+        function crearMarcador(temperature, humidity) {
+            var combinedIcon = L.divIcon({
+                className: 'custom-icon',
+                html: `
+                    <div class="custom-icon">
+                        <img src="images/hot.png" class="temperature-icon" />
+                        <img src="images/humedad.png" class="humidity-icon" />
+                        <div class="temperature-value">${temperature}°C</div>
+                        <div class="humidity-value">${humidity}%</div>
+                    </div>
+                `,
+                iconSize: [100, 50],
+            });
+
+            L.marker([-12.5934, -69.189], { icon: combinedIcon }).addTo(map)
+                .bindPopup("<b>Sensor de Temperatura y Humedad</b><br>Ubicación: Puerto Maldonado");
+        }
+    </script>
+</body>
+</html>

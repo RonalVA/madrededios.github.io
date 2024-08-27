@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocalización de Sensores con Leaflet</title>
+    <!-- Incluye el CSS de Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 500px; /* Ajusta la altura del mapa */
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ubicación de los Sensores</h1>
+    <div id="map"></div>
+
+    <!-- Incluye la biblioteca Leaflet -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Inicializar el mapa centrado en una ubicación específica (ejemplo: Lima, Perú)
+        var map = L.map('map').setView([-12.046374, -77.042793], 10);
+
+        // Añadir capa base de OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Añadir un marcador en la ubicación del sensor
+        var marker1 = L.marker([-12.046374, -77.042793]).addTo(map)
+            .bindPopup('<b>Sensor 1</b><br>Ubicación: Lima, Perú').openPopup();
+
+        // Añadir más marcadores para otros sensores
+        var marker2 = L.marker([-12.046, -77.030]).addTo(map)
+            .bindPopup('<b>Sensor 2</b><br>Ubicación: Lima, Perú');
+
+        var marker3 = L.marker([-12.050, -77.040]).addTo(map)
+            .bindPopup('<b>Sensor 3</b><br>Ubicación: Lima, Perú');
+    </script>
+</body>
+</html>
