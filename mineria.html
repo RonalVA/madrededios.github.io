@@ -121,13 +121,29 @@
                                             
                                             
                                             <!-- Integración de la URL de realidad virtual en un iframe -->
-                                            <iframe src="https://oncyber.io/spaces/7W3MB2E2bqJ3ZT3wODIn?coords=0.45x2.85x-5.34x0.17"></iframe>
+                                            <iframe src="https://oncyber.io/spaces/hBnKdrVjewkE4aSXyioz"></iframe>
                                             <br>
                                             <br>
-                                            <a href="https://oncyber.io/spaces/7W3MB2E2bqJ3ZT3wODIn?coords=0.45x2.85x-5.34x0.17" target="_blank"><h1>EMBAJADORES</h1></a>.
+                                            <a href="https://oncyber.io/spaces/hBnKdrVjewkE4aSXyioz" target="_blank"><h1>EMBAJADORES</h1></a>.
                                             
                                         </body>
 									</section>
+
+							</div>
+							<div class="col-4 col-12-medium">
+
+								<!-- Box -->
+
+									<section class="box feature">
+										<iframe src="http://192.168.57.33/" title="Contenido en tiempo real"></iframe>
+										<br>
+										<br>
+										<h2>Comunicación Inalambrica</h2>
+										<br>
+									
+
+									</section>
+								
 
 							</div>
 							<div class="col-4 col-12-medium">
@@ -142,136 +158,50 @@
 											</header>
 										</div>
                                         -->
-                                        <body>
-                                                                                        
-                                            <!-- Integración del gráfico de ThingSpeak usando un iframe -->
-                                            <iframe src="https://thingspeak.com/channels/2632360"></iframe>
-                                            <br>
-                                            <br>
-                                            <a href="https://thingspeak.com/channels/2632360" target="_blank"><h2>Comunicación Inalambrica</h2></a>.
-                                            
-                                        </body>
-									</section>
-
-							</div>
-							<div class="col-4 col-12-medium">
-
-								<!-- Box -->
-									<section class="box feature">
-										<!--<a href="#" class="image featured"><img src="images/agroforesteria.jpg" alt="" /></a>
-										<div class="inner">
-											<header>
-												<h2>Comunicación Inalambrica</h2>
-												<p></p>
-											</header>
-										</div>
-                                        -->
-										<head>
-											<title>Mapa con Leaflet - Temperatura y Humedad en Puerto Maldonado</title>
-											<meta charset="utf-8" />
-											<meta name="viewport" content="width=device-width, initial-scale=1.0">
-											<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-											<style>
-												#map { height: 400px; }
-												.custom-icon {
-													position: relative;
-													width: 100px;
-													height: 50px;
-												}
-												.custom-icon img {
-													position: absolute;
-													width: 70px;
-													height: 70px;
-												}
-												.temperature-icon {
-													left: 0;
-													top: 0;
-												}
-												.humidity-icon {
-													left: 70px;
-													top: 0;
-												}
-												.temperature-value, .humidity-value {
-													position: absolute;
-													top: 50px;
-													font-size: 18px;
-													font-weight: bold;
-												}
-												.temperature-value {
-													left: 0;
-												}
-												.humidity-value {
-													left: 70px;
-												}
-											</style>
-										</head>
+										<meta charset="UTF-8">
+										<meta name="viewport" content="width=device-width, initial-scale=1.0">
+										<title>Geolocalización de Cámaras en Puerto Maldonado</title>
+										<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+										<style>
+											#map {
+												height: 500px;
+												width: 100%;
+											}
+										</style>
 										<body>
+											
 											<div id="map"></div>
-											<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+											<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 											<script>
+												// Inicializa el mapa centrado en Puerto Maldonado
+												var map = L.map('map').setView([-12.886778, -70.019402], 13); // Coordenadas de Puerto Maldonado, 
 
-												 // Inicializar el mapa centrado en una ubicación específica (ejemplo: Lima, Perú)
-												
-												//
-												var map = L.map('map').setView([-12.5934, -69.189], 13);
-										
+												// Añade el mapa base de OpenStreetMap
 												L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-													maxZoom: 19
+													attribution: '&copy; OpenStreetMap contributors'
 												}).addTo(map);
-										
-												// URL para obtener los datos de temperatura desde ThingSpeak
-												var url = `https://api.thingspeak.com/channels/2632360/fields/1.json?api_key=PDAEFX6BP7MD7X70&results=1`;
-										
-												fetch(url)
-													.then(response => response.json())
-													.then(data => {
-														var temperature = data.feeds[0].field1;
-										
-														// URL para obtener los datos de humedad desde ThingSpeak
-														var url2 = `https://api.thingspeak.com/channels/2632360/fields/2.json?api_key=PDAEFX6BP7MD7X70&results=1`;
-										
-														return fetch(url2)
-															.then(response => response.json())
-															.then(data2 => {
-																var humidity = data2.feeds[0].field2;
-										
-																// Crear el marcador con los valores obtenidos
-																crearMarcador(temperature, humidity);
-															});
-													})
-													.catch(error => console.error('Error obteniendo los datos:', error));
-										
-												function crearMarcador(temperature, humidity) {
-													var combinedIcon = L.divIcon({
-														className: 'custom-icon',
-														html: `
-															<div class="custom-icon">
-																<img src="images/humedad.png" class="temperature-icon" />
-																<img src="images/hot.png" class="humidity-icon" />
-																<div class="temperature-value">${temperature}°C</div>
-																<div class="humidity-value">${humidity}%</div>
-															</div>
-														`,
-														iconSize: [100, 50],
-													});
-										
-													L.marker([-12.5934, -69.189], { icon: combinedIcon }).addTo(map)
-														.bindPopup("<b>Sensor de Temperatura y Humedad</b><br>Ubicación: Puerto Maldonado");
-												}
 
-													// Agregar marcadores adicionales sin íconos personalizados
-													L.marker([-12.595, -69.170]).addTo(map).bindPopup("<b>Sensor Flama</b><br>");
-													L.marker([-12.590, -69.200]).addTo(map).bindPopup("<b>Sensor Lluvia</b><br>");
-													L.marker([-12.585, -69.085]).addTo(map).bindPopup("<b>Sensor oxigeno</b><br>");
-												
+												// Datos de las cámaras (latitud, longitud, URL del stream)
+												var cameras = [
+													{ lat: -12.9161, lng: -69.7556, url: "http://192.168.57.33/cam1", name: "Cámara 1 en La pampa" }, // Ejemplo en la Plaza de Armas
+													{ lat: -12.5960, lng: -69.1845, url: "http://192.168.57.33/cam2", name: "Cámara 2 " },         // Ejemplo cerca del puerto
+													{ lat: -12.888045, lng: -70.013704, url: "http://192.168.57.33/cam2", name: "Cámara 3" },          // Ejemplo cerca del puerto
+													{ lat: -12.886495, lng: -70.025423, url: "http://192.168.57.33/cam1", name: "Cámara 4" }
+													 
+												];
+
+												// Añade un marcador para cada cámara
+												cameras.forEach(function(camera) {
+													var marker = L.marker([camera.lat, camera.lng]).addTo(map);
+													marker.bindPopup(`<b>${camera.name}</b><br><a href="${camera.url}" target="_blank">Ver cámara</a>`);
+												});
 											</script>
 										</body>
 											<br>
-											<br>
-											<br>
 											
-											<h2>Geolocalización</h2>
-											<br>
+											
+											<h2>Cámaras Geolocalizadas en Puerto Maldonado</h2>
 											<br>
 										</body> 
 										
